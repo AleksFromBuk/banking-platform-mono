@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:15432/bankdb
+    username: postgres
+    password: password
+  liquibase:
+    drop-first: true
+
+jwt:
+  issuer: banking-platform
+  audience: banking-api
+  access-ttl-sec: 900
+  refresh-ttl-sec: 2592000
+  private-key-location: classpath:keys/jwt-private.pem
+  public-key-location: classpath:keys/jwt-public.pem
+
+pan:
+  encryption:
+    key: ${PAN_ENCRYPTION_KEY:01234567890123456789012345678901}
+    key-b64: ${PAN_ENCRYPTION_KEY_B64:yCI42Ia609JCrj1fGtvdw3qF05kl4+S+iHRpk1wHwXA=}
+
+logging:
+  level:
+    root: WARN
+    org.springframework.web: WARN
+    org.springframework.web.client.RestTemplate: WARN
+    org.hibernate.SQL: WARN
+
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+http:
+  bodylog:
+    enabled: false
