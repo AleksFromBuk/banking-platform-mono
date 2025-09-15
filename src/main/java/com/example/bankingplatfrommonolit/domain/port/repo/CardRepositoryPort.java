@@ -20,5 +20,6 @@ public interface CardRepositoryPort {
     List<Card> findByOwnerIdAndFilters(UUID ownerId, CardFilter filter, int page, int size);
     List<Card> findAllWithFilters(CardFilter filter, int page, int size);
     List<Card> findByExpiryDateBefore(LocalDate date);
+    void updateBalance(UUID id, BigDecimal newBalance);
 
 }

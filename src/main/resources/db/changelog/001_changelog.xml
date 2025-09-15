@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+      http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.23.xsd">
+
+
+    <include file="v1.0.0/users/001-create-users-table.sql" relativeToChangelogFile="true"/>
+    <include file="v1.0.0/cards/002-create-cards-table.sql" relativeToChangelogFile="true"/>
+    <include file="v1.0.0/transactions/003-create-transactions-table.sql" relativeToChangelogFile="true"/>
+    <include file="v1.0.0/refresh-tokens/004-create-refresh-tokens-table.sql" relativeToChangelogFile="true"/>
+    <include file="v1.0.0/idempotency-keys/005-create-idempotency-keys-table.sql" relativeToChangelogFile="true"/>
+    <include file="v1.0.0/audit-log/006-create-audit-log-table.sql" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

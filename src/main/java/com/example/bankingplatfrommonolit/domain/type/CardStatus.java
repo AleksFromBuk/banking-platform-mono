@@ -2,8 +2,8 @@ package com.example.bankingplatfrommonolit.domain.type;
 
 public enum CardStatus {
     ACTIVE,
-    BLOCK_REQUEST,
+    BLOCK_REQUESTED,
     BLOCKED,
-    DELETE,
+    DELETED,
     EXPIRED
 }

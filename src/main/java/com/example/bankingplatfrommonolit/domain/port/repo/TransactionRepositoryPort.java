@@ -8,5 +8,5 @@ import java.util.UUID;
 public interface TransactionRepositoryPort {
     Transaction save(Transaction transaction);
     List<Transaction> findByCardId(UUID cardId, int page, int size);
-    List<Transaction> findByCardIfAndOwnerId (UUID cardId, UUID ownerId, int page, int size);
+    List<Transaction> findByCardIdAndOwnerId(UUID cardId, UUID ownerId, int page, int size);
 }

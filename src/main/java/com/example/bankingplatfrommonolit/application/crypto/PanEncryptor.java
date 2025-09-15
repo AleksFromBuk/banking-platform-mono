@@ -1,5 +1,7 @@
 package com.example.bankingplatfrommonolit.application.crypto;
 
+import org.springframework.stereotype.Component;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -9,15 +11,16 @@ import java.util.Base64;
 
 public class PanEncryptor {
     private static final String AES = "AES";
-    private static final String ALG = "AES/GSM/NoPadding";
+    private static final String ALG = "AES/GCM/NoPadding";
     private static final int IV_LEN = 12;
     private static final int TAG_BITS = 128;
     private final SecretKeySpec key;
     private final SecureRandom rnd = new SecureRandom();
 
-    public PanEncryptor(String key32) {
-        var bytes = key32.substring(0, 32).getBytes(StandardCharsets.UTF_8);
-        this.key = new SecretKeySpec(bytes, AES);
+    public PanEncryptor(String base64Key) {
+        byte[] k = Base64.getDecoder().decode(base64Key);
+        if (k.length != 32) throw new IllegalArgumentException("AES key must be exactly 32 bytes");
+        this.key = new SecretKeySpec(k, "AES");
     }
 
     public String encrypt(String pan) {

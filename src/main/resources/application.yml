@@ -1,0 +1,57 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: bank-monolith
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:15432/bankdb}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+
+  liquibase:
+    drop-first: true
+    change-log: classpath:db/changelog/001_changelog.xml
+    # (дополнительно можно не указывать url/user/password — возьмёт из datasource)
+
+jwt:
+  issuer: banking-platform
+  audience: banking-api
+  access-ttl-sec: 900
+  refresh-ttl-sec: 2592000
+  private-key-location: classpath:keys/jwt-private.pem
+  public-key-location: classpath:keys/jwt-public.pem
+
+pan:
+  encryption:
+    key: ${PAN_ENCRYPTION_KEY:01234567890123456789012345678901}
+    key-b64: ${PAN_ENCRYPTION_KEY_B64:yCI42Ia609JCrj1fGtvdw3qF05kl4+S+iHRpk1wHwXA=}
+
+rate-limit:
+  auth:
+    window-seconds: 60
+    max-requests: 30
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+   charset:
+   console: UTF-8
+
+http:
+  bodylog:
+     enabled: false

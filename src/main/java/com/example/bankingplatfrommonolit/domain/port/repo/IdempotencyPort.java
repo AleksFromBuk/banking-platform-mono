@@ -7,5 +7,5 @@ public interface IdempotencyPort {
     boolean tryStart(String key);
     void complete(String key, String responseJson);
     Optional<String> getCompletedResponse(String ke);
-    void cleanupOlderThanDays(int days);
+    int cleanupOlderThanDays(int days);
 }
