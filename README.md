@@ -74,7 +74,7 @@ Spring Boot-приложение для управления банковски�
 
 ```bash
 git clone <your-repo-url>
-cd bankingplatfrommonolit
+cd banking-platform-mono
 mvn clean package
 ```
 
