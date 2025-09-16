@@ -30,7 +30,6 @@ import java.util.UUID;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class BaseIntegrationTest {
 
-    // Testcontainers — стартуем ЗАРАНЕЕ
     static final PostgreSQLContainer<?> PG = new PostgreSQLContainer<>("postgres:16-alpine")
             .withDatabaseName("bankdb")
             .withUsername("app")

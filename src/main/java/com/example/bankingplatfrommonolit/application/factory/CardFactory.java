@@ -4,6 +4,7 @@ import com.example.bankingplatfrommonolit.application.crypto.PanEncryptor;
 import com.example.bankingplatfrommonolit.application.validation.CardValidators;
 import com.example.bankingplatfrommonolit.domain.model.Card;
 import com.example.bankingplatfrommonolit.domain.type.CardStatus;
+import com.example.bankingplatfrommonolit.infrastructure.exception.CardInvalidPanCodeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ public class CardFactory {
     private final PanEncryptor encryptor;
 
     public Card create(UUID ownerId, String rawPan, LocalDate expiry) {
-        if (!CardValidators.luhn(rawPan)) throw new IllegalArgumentException("PAN invalid (Luhn)");
+        if (!CardValidators.luhn(rawPan)) throw new CardInvalidPanCodeException(rawPan);
         CardValidators.requireFuture(expiry);
 
         String last4 = rawPan.substring(rawPan.length() - 4);

@@ -31,26 +31,13 @@ public class CardQueryService {
                 .collect(Collectors.toList());
     }
 
-//    @Transactional(readOnly = true)
-//    public List<CardDtos.CardView> listForUserWithFilters(UUID userId, CardFilter filter, int page, int size) {
-//        return cards.findByOwnerIdAndFilters(userId, filter, page, size).stream()
-//                .map(CardCommandService::toView)
-//                .collect(Collectors.toList());
-//    }
-//
-//    @Transactional(readOnly = true)
-//    public List<CardDtos.CardView> listAllWithFilters(CardFilter filter, int page, int size) {
-//        return cards.findAllWithFilters(filter, page, size).stream()
-//                .map(CardCommandService::toView)
-//                .collect(Collectors.toList());
-//    }
-@Transactional(readOnly = true)
-public List<CardDtos.CardView> listForUserWithFilters(UUID userId, CardFilter filter, int page, int size) {
-    List<Card> cards = cardRepository.findByOwnerIdAndFilters(userId, filter, page, size);
-    return cards.stream()
-            .map(CardCommandService::toView)
-            .collect(Collectors.toList());
-}
+    @Transactional(readOnly = true)
+    public List<CardDtos.CardView> listForUserWithFilters(UUID userId, CardFilter filter, int page, int size) {
+        List<Card> cards = cardRepository.findByOwnerIdAndFilters(userId, filter, page, size);
+        return cards.stream()
+                .map(CardCommandService::toView)
+                .collect(Collectors.toList());
+    }
 
     @Transactional(readOnly = true)
     public List<CardDtos.CardView> listAllWithFilters(CardFilter filter, int page, int size) {

@@ -4,8 +4,9 @@ import com.example.bankingplatfrommonolit.application.dto.card.CardDtos;
 import com.example.bankingplatfrommonolit.application.dto.transfer.TransferDtos;
 import jakarta.validation.constraints.NotNull;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

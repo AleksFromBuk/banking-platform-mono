@@ -94,7 +94,6 @@ public class CardRepositoryAdapter implements CardRepositoryPort {
                 .and(CardSpecifications.byBalanceGreaterThanOrEqual(filter.minBalance()))
                 .and(CardSpecifications.byBalanceLessThanOrEqual(filter.maxBalance()));
 
-        // статусы: поддержим и одиночный, и набор
         if (filter.statuses() != null && !filter.statuses().isEmpty()) {
             spec = spec.and(CardSpecifications.byStatusIn(filter.statuses()));
         } else if (filter.status() != null) {

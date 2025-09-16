@@ -50,21 +50,17 @@ public class AuthService {
 
     @Transactional
     public AuthDtos.TokenResponse login(AuthDtos.LoginRequest r, String ua, String ip) {
-        // 1) ищем пользователя по username/email
         var u = users.findByUsernameOrEmail(r.login())
                 .orElseThrow(() -> new UnauthorizedException("Bad credentials"));
 
-        // 2) сверяем пароль
         if (!encoder.matches(r.password(), u.getPasswordHash())) {
             throw new UnauthorizedException("Bad credentials");
         }
 
-        // 3) пользователь должен быть активен
         if (!u.isActive()) {
             throw new ForbiddenException("User inactive");
         }
 
-        // 4) выпускаем пару токенов и сохраняем refresh с UA/IP (могут быть null)
         return issuePair(u, ua, ip);
     }
 
@@ -85,9 +81,9 @@ public class AuthService {
                 user.getId(),
                 sha256(rtRaw),
                 Instant.now().plusSeconds(jwt.getRefreshTtlSeconds()),
-                ua,            // может быть null
-                ip,            // может быть null
-                null           // rotatedFrom при первичной выдаче отсутствует
+                ua,
+                ip,
+                null
         );
 
         long exp = jwt.parse(at).getBody().getExpiration().toInstant().getEpochSecond();

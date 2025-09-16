@@ -30,7 +30,7 @@ public class SecurityConfig {
             @Value("${pan.encryption.key-b64:}") String b64,
             @Value("${pan.encryption.key:}") String legacyRaw32
     ) {
-        // предпочитаем base64, но если задан старый 32-символьный ключ — конвертируем его в base64 на лету
+
         String effectiveB64 = !b64.isBlank()
                 ? b64
                 : Base64.getEncoder().encodeToString(legacyRaw32.getBytes(StandardCharsets.UTF_8));
@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
+                                "/swagger-ui.html",
                                 "/actuator/health",
                                 "/auth/**"
                         ).permitAll()

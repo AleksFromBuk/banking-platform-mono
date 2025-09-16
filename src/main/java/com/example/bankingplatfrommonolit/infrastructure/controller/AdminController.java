@@ -7,11 +7,10 @@ import com.example.bankingplatfrommonolit.application.service.CardQueryService;
 import com.example.bankingplatfrommonolit.application.service.UserService;
 import com.example.bankingplatfrommonolit.domain.port.repo.CardFilter;
 import com.example.bankingplatfrommonolit.domain.type.CardStatus;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +24,7 @@ import java.util.UUID;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ADMIN')")
+@SecurityRequirement(name = "bearerAuth")
 public class AdminController {
     private final CardCommandService cmd;
     private final CardQueryService cardQueryService;
@@ -42,13 +42,11 @@ public class AdminController {
         return cardQueryService.listAll(page, size);
     }
 
-    // полноправный CRUD: создание карты админом
     @PostMapping("/cards")
     public CardDtos.CardView create(@Valid @RequestBody CardDtos.CreateCardRequest r) {
         return cmd.create(r);
     }
 
-    // мягкое удаление по ТЗ ("Удаляет карты") через статус
     @DeleteMapping("/cards/{id}")
     public void delete(@PathVariable UUID id) {
         cmd.changeStatusAsAdmin(id, CardStatus.DELETED);

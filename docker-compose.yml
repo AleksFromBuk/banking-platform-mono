@@ -19,24 +19,5 @@ services:
       timeout: 2s
       retries: 20
 
-  db-reset:
-    image: postgres:13
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      PGPASSWORD: password
-    entrypoint:
-      - bash
-      - -c
-      - |
-        set -e
-        until pg_isready -h postgres -U postgres -d postgres >/dev/null 2>&1; do sleep 1; done
-        psql -h postgres -U postgres -d postgres -v ON_ERROR_STOP=1 -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='bankdb';"
-        psql -h postgres -U postgres -d postgres -v ON_ERROR_STOP=1 -c "DROP DATABASE IF EXISTS bankdb;"
-        psql -h postgres -U postgres -d postgres -v ON_ERROR_STOP=1 -c "CREATE DATABASE bankdb;"
-        echo 'DB recreated'
-    restart: "no"
-
 volumes:
   postgres_data:

@@ -55,3 +55,9 @@ logging:
 http:
   bodylog:
      enabled: false
+
+app:
+  admin:
+    username: admin
+    email: admin@example.com
+    password: admin

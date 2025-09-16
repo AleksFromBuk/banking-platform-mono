@@ -1,7 +1,5 @@
 package com.example.bankingplatfrommonolit.application.crypto;
 
-import org.springframework.stereotype.Component;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;

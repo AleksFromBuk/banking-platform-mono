@@ -27,7 +27,6 @@ class AuthFlowIntegrationTest {
 
     @Test
     void shouldRegisterLoginAndRefresh() throws Exception {
-        // Register
         Map<String, String> registerRequest = Map.of(
                 "username", "testuser",
                 "email", "test@example.com",
@@ -42,11 +41,9 @@ class AuthFlowIntegrationTest {
                 .andExpect(jsonPath("$.refreshToken").exists())
                 .andReturn();
 
-        // Extract refresh token
         String response = registerResult.getResponse().getContentAsString();
         String refreshToken = objectMapper.readTree(response).get("refreshToken").asText();
 
-        // Refresh
         Map<String, String> refreshRequest = Map.of("refreshToken", refreshToken);
 
         mockMvc.perform(post("/auth/refresh")
