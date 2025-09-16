@@ -89,7 +89,8 @@ docker-compose up -d
 3. **Запуск приложения**
 
 ```bash
-java -jar target/bankingplatfrommonolit-0.0.1-SNAPSHOT.jar
+java -jar target/bank-monolith-1.0.0.jar
+
 ```
 
 > Приложение подключается к БД по `localhost:15432` (см. `application.yml`).
